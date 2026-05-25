@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* general styling */
+
+body {
+  background-color: var(--prime-grey);
+}
+
+/* nav */
+
+header {
+    position: relative;
+ display: flex;
+  justify-content: space-between;
+  align-items: center; 
+ /* background-color: transparent;
+  position: fixed;*/
+  top: 0;
+  width: 100%;
+  padding: 1em 2em;
+/* transition: background-color 0.3s ease;
+  z-index: 1000;*/
+  
+}
+
+header.scrolled {
+  background-color: #d2c3b4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Menuen på desktop*/
+
+.menu {
+    justify-content: space-between;
+    margin-right: 5%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-left: auto;
+  flex-wrap: nowrap;
+}
+.menu a {
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.menu a:hover {
+  transform: scale(1.1);
+}
+
+/*****NAV-LOGO*****/
+.logo{ 
+    width: 100%;
+  display: flex;
+}
+
+.logo img {
+  height: auto; /* justér størrelsen */
+  width: 30px;
+  padding-right: 1rem;
+}
+
+.logo p {
+font-family: var(--p-font);
+}
+
+/*shop knappen*/
+
+.shop {
+  background-color: var(--prime-lime);
+  all: unset;
+  display: inline-block;
+  padding: 0.5em 1.5em;
+  border: 1px solid #000;
+  cursor: pointer;
+  color: #000;
+  transition: transform 0.3s ease;
+}
+
+.shop:hover {
+  transform: scale(1.2);
+}
+
+/* BURGER ICON */
+.burger {
+    margin-right: 10%;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 2000;
+}
+
+.burger span {
+  width: 25px;
+  height: 3px;
+  background-color: #000;
+}
+
+/* MOBILE DROPDOWN MENU */
+.mobile-nav {
+  position: absolute;
+  top: 70px;
+  right: 0px;
+  background-color: var(--prime-white);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1500;
+}
+
+.mobile-nav a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.mobile-nav a:hover {
+  transform: scale(1.1);
+}
+
+.mobile-nav.open {
+  display: flex;
+  margin-right: 4rem;
+}
+
+.mobile-nav.open img {
+  width: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
+
+
