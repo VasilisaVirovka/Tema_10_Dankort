@@ -99,10 +99,36 @@ function resolveCatalogLabel(entry, fallback) {
   );
 }
 
+function deriveCollectionMeta(productName) {
+  const sourceName = String(productName ?? '').trim();
+
+  if (!sourceName) {
+    return { collectionName: '', collectionSlug: '' };
+  }
+
+  const match = sourceName.match(/\s*[–-]\s*/);
+  const collectionBase = match ? sourceName.slice(0, match.index).trim() : '';
+
+  if (!collectionBase) {
+    return { collectionName: '', collectionSlug: '' };
+  }
+
+  const collectionSlug = collectionBase
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return {
+    collectionName: `${collectionBase} Collection`,
+    collectionSlug,
+  };
+}
+
 function getProductImagesFromData(product) {
+  const galleryImages = Array.isArray(product?.gallery_images) ? product.gallery_images : [];
   const imageRows = Array.isArray(product?.product_images) ? product.product_images : [];
 
-  return imageRows
+  return [...galleryImages, ...imageRows]
     .filter((image) => Boolean(image?.image_url))
     .sort((a, b) => {
       if (a?.is_primary && !b?.is_primary) {
@@ -225,34 +251,56 @@ function normalizeProduct(product) {
   const rawPrice = Number(product?.price ?? 0);
   const stockCount = Number(product?.stock ?? 0);
   const soldOut = stockCount <= 0;
+  const categoryId = product?.category_id || null;
+  const collectionId = product?.collection_id || null;
   const images = getProductImagesFromData(product);
-  const primaryImage = images.find((image) => image.is_primary)?.image_url || images[0]?.image_url || '';
-  const categoryId = product?.category_id || product?.categories?.id || null;
-  const collectionId = product?.collection_id || product?.collections?.id || null;
-  const variants = [
-    ...new Set(
-      images
-        .map((image) => image.color)
-        .filter(Boolean)
-    ),
-  ].map((color) => ({
-    value: color,
-    label: capitalize(color),
-    imageUrl: images.find((image) => image.color === color)?.image_url || primaryImage,
-    swatchColor: getColorHex(color),
-  }));
+  const primaryImage =
+    product?.image_url ||
+    images.find((image) => image.is_primary)?.image_url ||
+    images[0]?.image_url ||
+    '';
+  const derivedCollection = deriveCollectionMeta(product?.name || product?.title || '');
+  const collectionName = String(product?.collection_name || product?.collections?.name || derivedCollection.collectionName || '').trim();
+  const collectionSlug = String(product?.collection_slug || product?.collections?.slug || derivedCollection.collectionSlug || '').trim();
+
+  const availableColors = Array.isArray(product?.available_colors)
+    ? product.available_colors
+    : [];
+
+  const variants = availableColors.length > 0
+    ? availableColors
+        .map((color) => {
+          const normalizedColor = normalizeColor(color);
+
+          return {
+            value: normalizedColor,
+            label: capitalize(normalizedColor),
+            imageUrl: images.find((image) => image.color === normalizedColor)?.image_url || primaryImage,
+            swatchColor: getColorHex(normalizedColor),
+          };
+        })
+        .filter((variant) => Boolean(variant.value))
+    : [
+        ...new Set(
+          images
+            .map((image) => image.color)
+            .filter(Boolean)
+        ),
+      ].map((color) => ({
+        value: color,
+        label: capitalize(color),
+        imageUrl: images.find((image) => image.color === color)?.image_url || primaryImage,
+        swatchColor: getColorHex(color),
+      }));
+
   const activeVariant =
     images.find((image) => image.is_primary)?.color ||
     variants[0]?.value ||
-    product?.color ||
+    normalizeColor(product?.color) ||
     null;
-  const collectionLabel =
-    getLabel(product?.collections?.name, '') ||
-    getLabel(product?.collection_name, '') ||
-    getLabel(product?.collection_label, '') ||
-    (collectionId ? 'Kollektion' : '');
 
   return {
+    ...product,
     id: product?.id,
     title,
     description,
@@ -272,10 +320,14 @@ function normalizeProduct(product) {
     activeVariant,
     categoryId,
     collectionId,
-    collectionLabel,
-    color: product?.color || null,
+    categoryName: getLabel(product?.category_name, ''),
+    collectionName,
+    categorySlug: getLabel(product?.category_slug, ''),
+    collectionSlug,
+    collectionLabel: collectionName,
+    color: normalizeColor(product?.color) || null,
     colorLabel: capitalize(product?.color),
-    searchText: `${title} ${description}`.toLowerCase(),
+    searchText: `${title} ${description} ${product?.category_name || ''} ${collectionName}`.toLowerCase(),
   };
 }
 
@@ -359,7 +411,7 @@ function createProductCard(product) {
 
       <div class="product-card__content">
         <h3 class="product-card__title">${product.title}</h3>
-        ${product.collectionLabel ? `<p class="product-card__collection">${product.collectionLabel}</p>` : ''}
+        ${product.collectionName ? `<p class="product-card__collection">${product.collectionName}</p>` : ''}
         <p class="product-card__description">${product.description}</p>
         ${createSwatchesMarkup(product)}
 
@@ -556,64 +608,54 @@ async function loadProducts() {
     </div>`;
 
   try {
-    const [productsResponse, categoriesResponse, collectionsResponse] = await Promise.all([
-      supabase
-        .from('products')
-        .select(`
+    const { data: productsData, error: productsError } = await supabase
+      .from('products')
+      .select(`
+        id,
+        name,
+        description,
+        price,
+        stock,
+        color,
+        is_new,
+        is_featured,
+        discount_percent,
+        category_id,
+        collection_id,
+        category_name,
+        collection_name,
+        category_slug,
+        collection_slug,
+        image_url,
+        gallery_images,
+        available_colors,
+        details,
+        collections(
           id,
           name,
-          description,
-          price,
-          stock,
-          is_new,
-          is_featured,
-          discount_percent,
-          category_id,
-          collection_id,
-          product_images(
-            id,
-            product_id,
-            image_url,
-            color,
-            is_primary,
-            sort_order
-          )
-        `),
-      supabase.from('categories').select('*'),
-      supabase.from('collections').select('*'),
-    ]);
+          slug
+        ),
+        product_images(
+          id,
+          product_id,
+          image_url,
+          is_primary,
+          color,
+          sort_order
+        )
+      `);
 
-    if (productsResponse.error) {
-      console.error(productsResponse.error);
+    if (productsError) {
+      console.error(productsError);
       renderProducts([]);
       return;
     }
 
-    if (categoriesResponse.error) {
-      console.error(categoriesResponse.error);
-    }
-
-    if (collectionsResponse.error) {
-      console.error(collectionsResponse.error);
-    }
-
-    const productsData = productsResponse.data ?? [];
-    const categoriesData = categoriesResponse.data ?? [];
-    const collectionsData = collectionsResponse.data ?? [];
-
-    if (!Array.isArray(productsData) || productsData.length === 0) {
-      renderProducts([]);
-      return;
-    }
-
-    const products = productsData.map(normalizeProduct);
+    const products = (productsData ?? []).map(normalizeProduct);
     const filters = createProductFilters({ onChange: renderProducts });
 
     filters.setProducts(products);
-    filters.setMetadata({
-      categories: buildCatalogOptions(categoriesData, products, 'category'),
-      collections: buildCatalogOptions(collectionsData, products, 'collection'),
-    });
+    await filters.loadMetadata();
   } catch (error) {
     console.error(error);
     renderProducts([]);

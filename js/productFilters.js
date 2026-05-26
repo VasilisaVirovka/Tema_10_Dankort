@@ -1,9 +1,11 @@
+import { supabase } from './supabase.js';
+
 const DEFAULT_FILTERS = {
   query: '',
   sortMode: 'featured',
   priceFilter: 'all',
-  categoryFilter: 'all',
-  collectionFilter: 'all',
+  categoryFilter: '',
+  collectionFilter: '',
 };
 
 function getElement(selector) {
@@ -36,7 +38,7 @@ function hideFilterGroup(groupName, hidden) {
   }
 }
 
-function populateSelect(select, options, selectedValue) {
+function populateSelect(select, options, selectedValue, placeholderLabel = 'Alle') {
   if (!select) {
     return;
   }
@@ -47,8 +49,8 @@ function populateSelect(select, options, selectedValue) {
   select.innerHTML = '';
 
   const placeholder = document.createElement('option');
-  placeholder.value = 'all';
-  placeholder.textContent = 'Alle';
+  placeholder.value = '';
+  placeholder.textContent = placeholderLabel;
   select.appendChild(placeholder);
 
   options.forEach((option) => {
@@ -72,7 +74,7 @@ function populateSelect(select, options, selectedValue) {
   if (hasSelectedOption) {
     select.value = normalizedSelected;
   } else {
-    select.value = 'all';
+    select.value = '';
   }
 
   if (currentValue && currentValue !== select.value && options.some((option) => normalizeOptionValue(option.id) === currentValue)) {
@@ -80,12 +82,55 @@ function populateSelect(select, options, selectedValue) {
   }
 }
 
-function syncFilterUI(filters, categories, collections) {
-  populateSelect(getElement('#categoryFilter'), categories, filters.categoryFilter);
-  populateSelect(getElement('#collectionFilter'), collections, filters.collectionFilter);
+function buildCatalogOptions(rows) {
+  return (Array.isArray(rows) ? rows : [])
+    .map((row) => ({
+      id: row?.id ?? '',
+      label: row?.name || row?.title || row?.label || row?.slug || 'Ukendt',
+    }))
+    .filter((row) => Boolean(row.id) && Boolean(row.label));
+}
 
-  hideFilterGroup('category', categories.length === 0);
-  hideFilterGroup('collection', collections.length === 0);
+function buildProductFilterOptions(products) {
+  const categoryOptions = [];
+  const collectionOptions = [];
+  const categoryIds = new Set();
+  const collectionIds = new Set();
+
+  (Array.isArray(products) ? products : []).forEach((product) => {
+    const categoryId = normalizeOptionValue(product?.categoryId ?? product?.category_id);
+    const collectionId = normalizeOptionValue(product?.collectionId ?? product?.collection_id);
+    const categoryName = String(product?.categoryName ?? product?.category_name ?? '').trim();
+    const collectionName = String(product?.collectionName ?? product?.collection_name ?? '').trim();
+    const categorySlug = String(product?.categorySlug ?? product?.category_slug ?? '').trim();
+    const collectionSlug = String(product?.collectionSlug ?? product?.collection_slug ?? '').trim();
+
+    if (categoryId && !categoryIds.has(categoryId)) {
+      categoryIds.add(categoryId);
+      categoryOptions.push({
+        id: categoryId,
+        label: categoryName || categorySlug || `Kategori ${categoryOptions.length + 1}`,
+      });
+    }
+
+    if (collectionId && !collectionIds.has(collectionId)) {
+      collectionIds.add(collectionId);
+      collectionOptions.push({
+        id: collectionId,
+        label: collectionName || collectionSlug || `Kollektion ${collectionOptions.length + 1}`,
+      });
+    }
+  });
+
+  return {
+    categories: categoryOptions,
+    collections: collectionOptions,
+  };
+}
+
+function syncFilterUI(filters, categories, collections) {
+  populateSelect(getElement('#categoryFilter'), categories, filters.categoryFilter, 'Alle kategorier');
+  populateSelect(getElement('#collectionFilter'), collections, filters.collectionFilter, 'Alle kollektioner');
 }
 
 function matchesPriceFilter(product, priceFilter) {
@@ -105,19 +150,27 @@ function matchesPriceFilter(product, priceFilter) {
 }
 
 function matchesCategoryFilter(product, categoryFilter) {
-  if (categoryFilter === 'all') {
+  const selectedCategoryId = normalizeOptionValue(categoryFilter);
+
+  if (!selectedCategoryId) {
     return true;
   }
 
-  return normalizeOptionValue(product.categoryId) === normalizeOptionValue(categoryFilter);
+  const productCategoryId = normalizeOptionValue(product.categoryId ?? product.category_id);
+
+  return productCategoryId === selectedCategoryId;
 }
 
 function matchesCollectionFilter(product, collectionFilter) {
-  if (collectionFilter === 'all') {
+  const selectedCollectionId = normalizeOptionValue(collectionFilter);
+
+  if (!selectedCollectionId) {
     return true;
   }
 
-  return normalizeOptionValue(product.collectionId) === normalizeOptionValue(collectionFilter);
+  const productCollectionId = normalizeOptionValue(product.collectionId ?? product.collection_id);
+
+  return productCollectionId === selectedCollectionId;
 }
 
 function filterProducts(products, filters) {
@@ -190,6 +243,38 @@ export function createProductFilters({ onChange }) {
     applyFilters();
   }
 
+  async function loadMetadata() {
+    const productOptions = buildProductFilterOptions(products);
+
+    if (productOptions.categories.length > 0 || productOptions.collections.length > 0) {
+      setMetadata(productOptions);
+      return;
+    }
+
+    const categoriesResponse = await supabase
+      .from('categories')
+      .select('id, slug')
+      .order('slug', { ascending: true });
+
+    if (categoriesResponse.error) {
+      console.error('Error fetching categories:', categoriesResponse.error);
+    }
+
+    const collectionsResponse = await supabase
+      .from('collections')
+      .select('id, name, slug')
+      .order('name', { ascending: true });
+
+    if (collectionsResponse.error) {
+      console.error('Error fetching collections:', collectionsResponse.error);
+    }
+
+    setMetadata({
+      categories: buildCatalogOptions(categoriesResponse.data),
+      collections: buildCatalogOptions(collectionsResponse.data),
+    });
+  }
+
   function handleChange() {
     if (controls.searchInput) {
       filters.query = controls.searchInput.value;
@@ -226,5 +311,6 @@ export function createProductFilters({ onChange }) {
   return {
     setProducts,
     setMetadata,
+    loadMetadata,
   };
 }
