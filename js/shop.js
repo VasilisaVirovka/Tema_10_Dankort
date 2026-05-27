@@ -407,12 +407,16 @@ function createProductCard(product) {
       <div class="product-card__visual">
         ${createCarouselMarkup(product)}
         ${createBadgeMarkup(product)}
+
       </div>
 
       <div class="product-card__content">
         <h3 class="product-card__title">${product.title}</h3>
         ${product.collectionName ? `<p class="product-card__collection">${product.collectionName}</p>` : ''}
         <p class="product-card__description">${product.description}</p>
+               <div class="productDetails">
+     
+    </div>
         ${createSwatchesMarkup(product)}
 
         <div class="product-card__footer">

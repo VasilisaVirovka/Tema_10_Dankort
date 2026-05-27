@@ -291,6 +291,7 @@ h2, h3, p {
   display: none;
 }
 
+/*Produkt badges*/
 .product-card__badges {
   position: absolute;
   inset: 0.85rem 0.85rem auto;
@@ -323,6 +324,9 @@ h2, h3, p {
   background: linear-gradient(135deg, #FFD998, #FFE8B6);
 }
 
+
+
+/*produkt indhold*/
 .product-card__content {
   display: flex;
   flex-direction: column;
@@ -370,6 +374,13 @@ h2, h3, p {
 .product-card__color-caption strong {
   color: var(--shop-text);
   text-transform: capitalize;
+}
+
+/*Se detaljer link*/
+
+.productDetails:hover {
+  opacity: 50%;
+
 }
 
 .product-card__swatches {
