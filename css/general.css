@@ -100,7 +100,14 @@ header.scrolled {
   color: var(--accent-dark);
 }
 
+/*WEbshop link*/
+
+.shop img {
+  margin-right: 0.5rem;
+}
+
 .shop {
+  padding-left: 1rem;
   background: var(--accent);
   color: #ffffff;
 }
