@@ -223,7 +223,7 @@ z-index: 99;
 }
 
 form {
-  margin-top: 8rem;
+  margin-top: 4rem;
 }
 
 h2 {
@@ -348,7 +348,7 @@ h2 {
 
 
   form {
-  margin-top: 5%;
+  margin-top: 15%;
   }
 }
 
@@ -378,7 +378,7 @@ h2 {
   
 .login-box {
   width: 50%;
-  height: 60%;
+  height: 50%;
   
 }
 }
