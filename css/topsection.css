@@ -48,17 +48,21 @@ margin: 0;
 
 .new-item-button {
   background: linear-gradient(135deg, var(--shop-accent), var(--shop-accent-dark));
-  color: #ffffff;
+  color: #000;/*farve på knapper øverste sektion*/
   box-shadow: 0 12px 30px rgba(27, 123, 82, 0.2);
   border: 0;
   border-radius: 999px;
   margin-left: 1rem;
-  padding: 0.8rem 1rem;
-  font-size: 0.93rem;
+  padding: 0.4rem 1.6rem;
+  font-size: 0.97rem;
   font-weight: 800;
   cursor: pointer;
   transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 }
+
+
+
+
 /************MEDIA QUARIES**********/
 
     @media (min-width: 768px) {

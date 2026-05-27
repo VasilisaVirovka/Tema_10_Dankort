@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "raleway";
+  src: url(../fonts/Raleway-Black.ttf);
+}
+
+@font-face {
+  font-family: "raleway_bold";
+  src: url(../fonts/Raleway-Bold.ttf);
+}
+
+@font-face {
+  font-family: "raleway_light";
+  src: url(../fonts/Raleway-Light.ttf);
+}
+
 :root {
   --shop-bg: #f7f6f1;
   --shop-panel: #ffffff;
@@ -5,8 +20,8 @@
   --shop-muted: #5a6159;
   --shop-border: rgba(17, 17, 17, 0.08);
   --shop-shadow: 0 24px 60px rgba(17, 24, 20, 0.08);
-  --shop-accent: #1b7b52;
-  --shop-accent-dark: #125d3b;
+  --shop-accent: #81D979;
+  --shop-accent-dark: #A1EEAC;
   --shop-highlight: #eaf6ef;
   --shop-warning: #c96b2a;
 }
@@ -14,6 +29,12 @@
 * {
   box-sizing: border-box;
 }
+/***SKrifttyper***/
+h2, h3, p {
+  font-family: "raleway_light";
+}
+
+/***Shop-siden**/
 
 .shop-page {
   width: min(1220px, calc(100% - 1.5rem));
@@ -278,17 +299,17 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #ffffff;
+  color: #000; /*Farve på skrift på kortene*/
   background: rgba(17, 17, 17, 0.88);
   backdrop-filter: blur(8px);
 }
 
 .product-card__badge--accent {
-  background: linear-gradient(135deg, rgba(27, 123, 82, 0.98), rgba(26, 93, 65, 0.96));
+  background: linear-gradient(135deg, #A1EEAC, #81D979);
 }
 
 .product-card__badge--warning {
-  background: linear-gradient(135deg, rgba(201, 107, 42, 0.98), rgba(165, 84, 29, 0.96));
+  background: linear-gradient(135deg, #FFD998, #FFE8B6);
 }
 
 .product-card__content {
@@ -413,7 +434,8 @@
 
 .product-card__button {
   background: linear-gradient(135deg, var(--shop-accent), var(--shop-accent-dark));
-  color: #ffffff;
+  color: #000; /*Farve på skrift på knapper*/
+  font-weight:100; /*tykkelse på tekst*/
   box-shadow: 0 12px 30px rgba(27, 123, 82, 0.2);
 }
 
@@ -429,7 +451,7 @@
   transform: translateY(-1px);
   outline: none;
 }
-
+/****Media Queries build with AI-Copilot****/
 @media (min-width: 768px) {
   .shop-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
