@@ -667,3 +667,6 @@ async function loadProducts() {
 }
 
 loadProducts();
+
+
+/***************Card-strin*****************/

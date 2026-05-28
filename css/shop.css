@@ -218,6 +218,7 @@ h2, h3, p {
   transform: scale(1.4);
   object-fit: cover;
   display: block;
+  transform: scale(1.4);
 }
 
 .carousel-slide--fallback {
