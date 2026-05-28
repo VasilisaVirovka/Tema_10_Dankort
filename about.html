@@ -4,70 +4,461 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- CSS -->
     <link rel="stylesheet" href="css/general.css" />
-     <!---Javascript--->
+    <link rel="stylesheet" href="css/about.css" />
+
+    <!-- Javascript -->
     <script src="js/popup.js" defer></script>
+    <script src="js/nav.js" defer></script>
+
     <title>Dankort-case</title>
+
     <link rel="icon" type="image/png" href="favicon/apple-touch-icon.svg" />
   </head>
+
   <body>
+
+    <!-- HEADER -->
+
     <header>
+
       <div class="logo">
-        <a href="index.html"><img src="imgs/logo.webp" alt="Logo" /></a>
+
+        <a href="index.html">
+          <img src="imgs/logo.webp" alt="Logo" />
+        </a>
+
         <p>En del af Nexi Group</p>
+
       </div>
+
+      <!-- DESKTOP NAV -->
 
       <nav class="menu" aria-label="Primær navigation">
+
         <div class="rightmenu">
-        <a href="index.html">Forside</a>
-        <a href="about.html">Om os</a>
-            <a href="shop.html" class="shop"> <img src="imgs/leaf 1 - ikon.svg" alt="">Webshop ➙</a>
-      <!--  <button id="profileButton" class="profile-button" type="button" aria-label="Open profile login" aria-controls="profileOverlay">-->
- <!--  </button>-->
-   </div>
+
+          <a href="index.html">Forside</a>
+
+          <a href="about.html">Om os</a>
+
+          <a href="shop.html" class="shop">
+
+            <img src="imgs/leaf 1 - ikon.svg" alt="" />
+
+            Webshop ➙
+
+          </a>
+
+        </div>
+
       </nav>
-  
+
+      <!-- MOBILE NAV -->
+
       <div class="mobile-nav" aria-label="Mobil navigation">
+
         <a href="index.html">Forside</a>
+
         <a href="about.html">Om os</a>
-            <a href="shop.html" class="shop"> <img src="imgs/leaf 1 - ikon.svg" alt="">Webshop ➙</a>
-        <button id="profileButtonMobile" class="profile-button profile-button--mobile" type="button" aria-label="Open profile login" aria-controls="profileOverlay">
-        
+
+        <a href="shop.html" class="shop">
+
+          <img src="imgs/leaf 1 - ikon.svg" alt="" />
+
+          Webshop ➙
+
+        </a>
+
+        <button
+          id="profileButtonMobile"
+          class="profile-button profile-button--mobile"
+          type="button"
+          aria-label="Open profile login"
+          aria-controls="profileOverlay"
+        >
         </button>
+
       </div>
 
+      <!-- BURGER -->
+
       <button class="burger" type="button" aria-label="Åbn menu">
+
         <span></span>
         <span></span>
         <span></span>
+
       </button>
-       <img src="imgs/profillogo-svgformat.svg" alt="" class="popup-img" id="openPopup">
+
+      <!-- PROFILE ICON -->
+
+      <img
+        src="imgs/profillogo-svgformat.svg"
+        alt=""
+        class="popup-img"
+        id="openPopup"
+      >
+
     </header>
-     <!--Pop-up-->
-                <div id="popup" class="popup">
-    <span class="close">&times;</span>
-    <div class="login-box">
-  <button class="close"></button>
 
-  <form>
-    <h2>Opret profil</h2>
+    <!-- POPUP -->
 
-    <div class="input-group">
-      <span><img src="imgs/profillogo-svgformat.svg" alt=""></span>
-      <input type="text" placeholder="Brugernavn eller email">
+    <div id="popup" class="popup">
+
+      <span class="close">&times;</span>
+
+      <div class="login-box">
+
+        <button class="close"></button>
+
+        <form>
+
+          <h2>Opret profil</h2>
+
+          <div class="input-group">
+
+            <span>
+              <img src="imgs/profillogo-svgformat.svg" alt="">
+            </span>
+
+            <input
+              type="text"
+              placeholder="Brugernavn eller email"
+            >
+
+          </div>
+
+          <div class="input-group">
+
+            <input
+              type="password"
+              placeholder="Password"
+            >
+
+          </div>
+
+          <a href="#" class="forgot">
+            Glemt adgangskode
+          </a>
+
+          <button type="submit" class="login-btn">
+            Log ind
+          </button>
+
+        </form>
+
+      </div>
+
     </div>
 
-    <div class="input-group">
-      <input type="password" placeholder="Password">
-    </div>
+    <!-- MAIN -->
 
-    <a href="#" class="forgot">Glemt adgangskode</a>
+    <main>
 
-    <button type="submit" class="login-btn">Log ind</button>
-  </form>
-</div>
-</div>
-    <footer></footer>
-    <script src="js/nav.js" defer></script>
+      <!-- HERO -->
+
+      <section class="about-hero">
+
+        <img
+          src="imgs/Hero-billede-about-us.webp"
+          alt="Natur illustration"
+        >
+
+        <div class="about-text">
+
+          <h1>Om Dankort Øremærket</h1>
+
+          <p>
+            Vi gør det nemt at træffe bevidste valg i hverdagen.
+            Med Øremærket kan du være med til at gøre en forskel
+            for naturen – hver gang du betaler.
+          </p>
+
+          <a href="#" class="cta-btn">
+            Vores mission
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- STEPS -->
+
+      <section class="steps-section">
+
+        <h2>Sådan fungerer Øremærket</h2>
+
+        <!-- STEP 1 -->
+
+        <article class="step-card">
+
+          <img
+            src="imgs/Dankort-transaktion.webp"
+            alt="Betaling"
+          >
+
+          <h3>Du betaler</h3>
+
+          <p>
+            Du bruger dit dankort som du plejer
+          </p>
+
+        </article>
+
+        <div class="arrow">
+          ↓
+        </div>
+
+        <!-- STEP 2 -->
+
+        <article class="step-card">
+
+          <img
+            src="imgs/mobil-oremaerket.webp"
+            alt="Øremærkning"
+          >
+
+          <h3>Vi øremærker</h3>
+
+          <p>
+            Vi øremærker et beløb fra dine køb.
+          </p>
+
+        </article>
+
+        <div class="arrow">
+          ↓
+        </div>
+
+        <!-- STEP 3 -->
+
+        <article class="step-card">
+
+          <img
+            src="imgs/naturen-faar-gavn.webp"
+            alt="Natur"
+          >
+
+          <h3>Naturen får gavn</h3>
+
+          <p>
+            Pengene går til projekter som beskytter naturen.
+          </p>
+
+        </article>
+
+      </section>
+
+      <!-- HVEM ER VI -->
+
+      <section class="about-company">
+
+        <h2>Hvem er vi?</h2>
+
+        <p>
+          Dankort Øremærket er et samarbejde med Naturfonden.
+          Sammen skaber vi en grønnere fremtid.
+        </p>
+
+        <!-- DANKORT CARD -->
+
+        <article class="company-card">
+
+          <div class="company-content">
+
+            <div>
+
+              <h3>DANKORT</h3>
+
+              <img
+                src="imgs/logo.webp"
+                alt="Dankort logo"
+              >
+
+            </div>
+
+            <p>
+              Dankort er Danmarks mest brugte betalingskort.
+              Vi arbejder for at sikre, nemme og ansvarlige
+              betalingsløsninger for alle.
+            </p>
+
+          </div>
+
+          <a href="#" class="cta-btn">
+            Læs mere om Dankort
+          </a>
+
+        </article>
+
+        <!-- NATURFONDEN CARD -->
+
+        <article class="company-card">
+
+          <div class="company-content">
+
+            <div>
+
+              <h3>NATUR FONDEN</h3>
+
+              <img
+                src="imgs/Naturfonde-logo.svg"
+                alt="Naturfonden logo"
+              >
+
+            </div>
+
+            <p>
+              Naturfonden genopretter og beskytter dansk natur
+              til gavn for både mennesker, dyr og klima.
+            </p>
+
+          </div>
+
+          <a href="#" class="cta-btn">
+            Læs mere om Naturfonden
+          </a>
+
+        </article>
+
+      </section>
+
+      <!-- WEBSHOP PREVIEW -->
+
+      <section class="webshop-preview">
+
+        <h2>NYESTE PRODUKT</h2>
+
+        <h3>Muleposen</h3>
+
+        <p>
+          Vores mulepose er produceret med fibre fra tang
+          – en overset spildressource fra havet.
+        </p>
+
+        <p>
+          Ved at støtte innovative producenter,
+          der genanvender naturlige materialer,
+          er vi med til at skabe produkter med omtanke
+          for både miljø og fremtid.
+        </p>
+
+        <div class="product-images">
+
+          <img
+            src="imgs/Mulepose.webp"
+            alt="Mulepose beige"
+          >
+
+        </div>
+
+        <a href="shop.html" class="cta-btn">
+          Gå til webshoppen
+        </a>
+
+      </section>
+
+      <!-- VALUES -->
+
+      <section class="values-section">
+
+        <article class="value-item">
+
+          <img src="imgs/lock 1-ikon.svg" alt="Sikkerhed">
+
+          <h3>Sikkert og trygt</h3>
+
+          <p>
+            Dine betalinger er altid beskyttede.
+          </p>
+
+        </article>
+
+        <article class="value-item">
+
+          <img src="imgs/eye 1 - ikon.svg" alt="Transparens">
+
+          <h3>Fuld transparens</h3>
+
+          <p>
+            Se præcis, hvordan dit bidrag gør en forskel.
+          </p>
+
+        </article>
+
+        <article class="value-item">
+
+          <img src="imgs/leaf 1 - ikon.svg" alt="Bæredygtighed">
+
+          <h3>Bæredygtig fremtid</h3>
+
+          <p>
+            Vi støtter projekter, der beskytter naturen.
+          </p>
+
+        </article>
+
+        <article class="value-item">
+
+          <img src="imgs/heart 1 - ikon.svg" alt="Hjerte">
+
+          <h3>Hver krone tæller</h3>
+
+          <p>
+            Små handlinger skaber store forandringer.
+          </p>
+
+        </article>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+      <div class="footer-column">
+
+        <h3>Dankort Øremærket</h3>
+
+        <p>
+          Små handlinger kan skabe en stor forskel.
+        </p>
+
+        <p class="copyright">
+          © 2026 Dankort Øremærket – Eksamensprojekt i samarbejde med 1508
+        </p>
+
+      </div>
+
+      <div class="footer-column">
+
+        <h3>Samarbejde</h3>
+
+        <p>
+          I samarbejde med Naturfonden
+        </p>
+
+        <img
+          src="imgs/Naturfonde-logo.svg"
+          alt="Naturfonden"
+        >
+
+      </div>
+
+      <div class="footer-logo">
+
+        <img
+          src="imgs/logo.webp"
+          alt="Dankort logo"
+        >
+
+      </div>
+
+    </footer>
+
   </body>
 </html>

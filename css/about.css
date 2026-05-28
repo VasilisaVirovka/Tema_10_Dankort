@@ -1,0 +1,269 @@
+/* ---------- HERO ---------- */
+
+.about-hero {
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 4rem;
+}
+
+.about-hero img {
+  width: 100%;
+}
+
+.about-text {
+  padding: 2rem 1.5rem 0;
+}
+
+.about-text h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+
+  margin-bottom: 1.5rem;
+}
+
+.about-text p {
+  font-size: 1.2rem;
+  line-height: 1.9;
+
+  margin-bottom: 2rem;
+}
+
+/* ---------- CTA BUTTON ---------- */
+
+.cta-btn {
+  display: inline-block;
+
+  padding: 1rem 2rem;
+
+  border-radius: 999px;
+
+  background-color: var(--prime-lime);
+
+  color: #000;
+  text-decoration: none;
+
+  font-weight: 600;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* ---------- STEPS ---------- */
+
+.steps-section {
+  padding: 0 1.5rem 4rem;
+}
+
+.steps-section h2 {
+  font-size: 2rem;
+
+  margin-bottom: 2.5rem;
+}
+
+.step-card {
+  text-align: center;
+}
+
+.step-card img {
+  width: 100%;
+
+  border-radius: 14px;
+
+  margin-bottom: 1rem;
+}
+
+.step-card h3 {
+  font-size: 1.8rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.step-card p {
+  line-height: 1.7;
+}
+
+.arrow {
+  text-align: center;
+
+  font-size: 5rem;
+
+  margin: 2rem 0;
+}
+
+/* ---------- ABOUT COMPANY ---------- */
+
+.about-company {
+  padding: 0 1.5rem 4rem;
+}
+
+.about-company h2 {
+  font-size: 2.5rem;
+
+  margin-bottom: 1rem;
+}
+
+.about-company > p {
+  line-height: 1.8;
+
+  margin-bottom: 2rem;
+}
+
+/* ---------- COMPANY CARD ---------- */
+
+.company-card {
+  background-color: #F8F8F8;
+
+  border-radius: 28px;
+
+  padding: 2rem;
+
+  margin-bottom: 2rem;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+.company-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+
+  margin-bottom: 2rem;
+}
+
+.company-content img {
+  width: 110px;
+
+  margin-top: 1rem;
+}
+
+.company-content h3 {
+  font-size: 2rem;
+}
+
+.company-content p {
+  line-height: 1.8;
+}
+
+/* ---------- WEBSHOP ---------- */
+
+.webshop-preview {
+  padding: 0 1.5rem 4rem;
+}
+
+.webshop-preview h2 {
+  font-size: 2rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.webshop-preview h3 {
+  font-size: 2.5rem;
+
+  margin-bottom: 1.5rem;
+}
+
+.webshop-preview p {
+  line-height: 2;
+
+  margin-bottom: 1.5rem;
+}
+
+.product-images {
+  display: flex;
+
+  gap: 1rem;
+
+  margin: 2rem 0;
+}
+
+.product-images img {
+  width: 50%;
+
+  border-radius: 24px;
+
+  background-color: #F8F8F8;
+
+  padding: 1rem;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+/* ---------- VALUES ---------- */
+
+.values-section {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 2rem 1.5rem;
+
+  padding: 0 1.5rem 4rem;
+}
+
+.value-item {
+  text-align: center;
+}
+
+.value-item img {
+  width: 60px;
+
+  margin-bottom: 1rem;
+}
+
+.value-item h3 {
+  font-size: 1.2rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.value-item p {
+  line-height: 1.6;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer {
+  border-top: 1px solid #000;
+
+  padding: 3rem 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.8rem;
+}
+
+.footer-column h3 {
+  font-size: 1.5rem;
+}
+
+.footer-column p {
+  line-height: 1.7;
+}
+
+.footer-column img {
+  width: 140px;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-logo img {
+  width: 80px;
+}
