@@ -6,12 +6,16 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/custom.css" />
-    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/general.css" />
-     <!---Javascript--->
+    <link rel="stylesheet" href="css/index.css" />
+      <!---Javascript--->
     <script src="js/popup.js" defer></script>
    <!-- <script src="js/burger.js" defer></script>-->
 
+    <!-- JS -->
+   <script src="js/nav.js" defer></script>
+   <script src="js/timer.js" defer></script>
+   <script src="js/disclaimer-pop-over.js" defer></script>
     <title>Dankort-case</title>
 
     <link rel="icon" type="image/png" href="favicon/apple-touch-icon.svg" />
@@ -24,37 +28,59 @@
     <header>
 
       <div class="logo">
-       <a href="index.html"><img src="imgs/logo.webp" alt="Logo" /></a>
+
+        <a href="index.html">
+          <img src="imgs/logo.webp" alt="Dankort logo" />
+        </a>
+
         <p>En del af Nexi Group</p>
+
       </div>
 
-      <nav class="menu" aria-label="Primær navigation">
-        <div class="rightmenu">
+      <!-- DESKTOP NAV -->
+
+      <nav class="menu">
+
         <a href="index.html">Forside</a>
+
         <a href="about.html">Om os</a>
-            <a href="shop.html" class="shop"> <img src="imgs/leaf 1 - ikon.svg" alt="">Webshop ➙</a>
+
+          <a href="shop.html" class="shop"> <img src="imgs/leaf 1 - ikon.svg" alt="">Webshop ➙</a>
       <!--  <button id="profileButton" class="profile-button" type="button" aria-label="Open profile login" aria-controls="profileOverlay">-->
  <!--  </button>-->
-   </div>
+        <!-- <img src="imgs/profillogo-svgformat.svg" alt="Profil ikon"> -->
+
       </nav>
-  
-      <div class="mobile-nav" aria-label="Mobil navigation">
+
+      <!-- MOBILE NAV -->
+
+      <div class="mobile-nav">
+
         <a href="index.html">Forside</a>
+
         <a href="about.html">Om os</a>
-           <a href="shop.html" class="shop"> <img src="imgs/leaf 1 - ikon.svg" alt="">Webshop ➙</a>
-        <button id="profileButtonMobile" class="profile-button profile-button--mobile" type="button" aria-label="Open profile login" aria-controls="profileOverlay">
-        
-        </button>
+
+        <a href="shop.html" class="shop">
+          Merch
+        </a>
+
+        <img src="imgs/profillogo-svgformat.svg" alt="Profil ikon">
+
       </div>
 
-      <button class="burger" type="button" aria-label="Åbn menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-       <img src="imgs/profillogo-svgformat.svg" alt="" class="popup-img" id="openPopup">
+      <!-- BURGER -->
+
+      <button class="burger" type="button">
+
+  <span></span>
+  <span></span>
+  <span></span>
+
+</button>
+      <img src="imgs/profillogo-svgformat.svg" alt="" class="popup-img" id="openPopup">
     </header>
    
+    </header>
    <!--Pop-up-->
                 <div id="popup" class="popup">
     <span class="close">&times;</span>
@@ -83,6 +109,13 @@
 
     <main>
 
+      
+      <dialog id="my-dialog" popover> 
+      <h2>OBS:</h2>
+       <p>Dette projekt er udarbejdet som led i en eksamen på Erhvervsakademi København (EK) i samarbejde med 1508 (Dankort), hvor Dankort udelukkende indgår som case-virksomhed. Projektet er derfor fiktivt og ikke bestilt af eller udarbejdet på vegne af Dankort. </p> 
+       <button popovertarget="my-dialog" popovertargetaction="hide">Luk</button>
+      </dialog>
+
       <section class="hero-section">
 
         <div class="hero-text">
@@ -103,12 +136,14 @@
         </div>
 
         <div class="hero-image">
+
           <img src="imgs/Hero-billede-forside.webp" alt="Natur illustration">
+
         </div>
 
       </section>
 
-      <!-- CARDS -->
+      <!-- INFO CARDS -->
 
       <section class="info-cards">
 
@@ -118,21 +153,28 @@
 
           <h2>Tænkepause</h2>
 
-         <div class="timer-circle">
-         <img src="imgs/timer10sek.svg" alt="Tænke-pause timer">
-         </div>
+          <!-- TIMER -->
 
-          <p class="card-text">
-            Tag 10 sekunder til at tænke over dit køb
-          </p>
+<div class="timer-circle">
 
-          <button>
-            Start tænke-pause
-          </button>
+
+  <p id="countdown">0:10</p>
+
+</div>
+
+<p class="card-text">
+  Tag 10 sekunder til at tænke over dit køb
+</p>
+
+<button id="startTimerBtn">
+  Start tænke-pause
+</button>
+
+         
 
         </article>
 
-        <!-- BIDRAG -->
+        <!-- DIT BIDRAG -->
 
         <article class="card">
 
@@ -143,17 +185,21 @@
             <img src="imgs/KORN-IKON.svg" alt="Leaf icon">
 
             <div>
+
               <p>Du har øremærket</p>
 
               <h3>248 kr.</h3>
 
               <p>til Naturfonden</p>
+
             </div>
 
           </div>
 
           <div class="progress-bar">
+
             <div class="progress-fill"></div>
+
           </div>
 
           <p class="goal">
@@ -177,15 +223,21 @@
             <img src="imgs/kaffe-ikon.svg" alt="Coffee icon">
 
             <div>
+
               <h3>Café Norden</h3>
+
               <p>I dag, 10:23</p>
+
             </div>
 
           </div>
 
           <div class="payment-amount">
+
             <h3>+24 kr.</h3>
+
             <p>Naturfonden</p>
+
           </div>
 
           <button>
@@ -225,7 +277,9 @@
         </div>
 
         <div class="transparency-image">
+
           <img src="imgs/Transparens-sektion-billede.webp" alt="Samarbejde">
+
         </div>
 
       </section>
@@ -309,7 +363,9 @@
         <h3>Navigation</h3>
 
         <a href="index.html">Forside</a>
+
         <a href="about.html">Om os</a>
+
         <a href="shop.html">Webshop</a>
 
       </div>
@@ -325,11 +381,13 @@
       </div>
 
       <div class="footer-logo">
+
         <img src="imgs/logo.webp" alt="Dankort">
+
       </div>
 
     </footer>
-<script src="js/nav.js" defer></script>
+
   </body>
 </html>
 
