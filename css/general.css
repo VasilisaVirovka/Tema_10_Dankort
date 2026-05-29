@@ -306,6 +306,44 @@ h2 {
     font-size:40px;
     cursor:pointer;
 }
+/* ---------- FOOTER ---------- */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+
+  padding: 3rem 1.5rem;
+
+  border-top: 1px solid #000;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.8rem;
+}
+
+.footer-column a {
+  color: #000;
+
+  text-decoration: none;
+}
+
+.footer-column img {
+  width: 130px;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-logo img {
+  width: 70px;
+}
 
 /*****MEDIA Q.....*****/
 
